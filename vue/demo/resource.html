@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<div id="app">
+			<input type="button" name="" id="" value="get获取" @click="get"/>
+			<input type="button" name="" id="" value="post获取" @click="post"/>
+			<input type="button" name="" id="" value="jsonp获取" @click="jsonp"/>
+		</div>	
+	</body>
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		 var vm=new Vue({
+		 	el:"#app",
+		 	methods:{
+		 		
+		 	 //get请求数据
+		 	  get:function(){
+		 	  	this.$http({
+		 	  	   url:'php/get.php',
+		 	  	   method:'get',
+		 	  	   params:{
+		 	  	   	a:1,
+		 	  	   	b:1
+		 	  	   }
+		 	  	}).then((res)=>{
+		 	  		console.log(res.body)}
+		 	  	);
+		 	   },
+		      //post请求数据
+		 	   post:function(){
+		 	  	this.$http({
+		 	  	   url:'php/post.php',
+		 	  	   method:'post',
+		 	  	   emulateJSON:true,
+		 	  	   headers:{
+		              'Content-Type':'application/x-www-form-urlencoded'
+		            },
+		 	  	   body:{
+		 	  	   	a:10,
+		 	  	   	b:1
+		 	  	   }
+		 	  	}).then((res)=>{
+		 	  		console.log(res.body)}
+		 	  	);
+		 	  },
+		 	  //跨域
+		 	  
+		 	 jsonp:function(){
+			 	   this.$http.jsonp(
+				 	  	 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?',
+				 	  	{
+				 	  		params:{wd:'赵磊'},
+				 	  		jsonp:'cb'
+				 	  	}
+				 	  ).then((res)=>{
+				 	  	console.log(res.body)
+			 	   })
+		   	 }
+		 	}
+		 	
+		 	
+		 })
+		
+		
+		
+	</script>
+</html>

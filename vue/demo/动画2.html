@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+		<style type="text/css">
+			[v-cloak]{display: none;}
+			.box{width: 100px;height: 100px;background: red;position: absolute;left:300px;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" name="" id="" value="开始" @click="show"  />
+			<transition 
+				enter-active-class="animated bounceInLeft"
+                leave-active-class = "animated bounceOutRight"
+				  >
+				<div class="box" v-show="bl"  v-cloak >
+					1111
+				</div>
+				
+				
+			</transition>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				bl:""
+			},
+			methods:{
+				show:function(){
+					this.bl=!this.bl
+				}
+			},
+			mounted(){
+				this.bl=!this.bl
+			}
+			
+		})
+		
+		
+	</script>
+	
+</html>

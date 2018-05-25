@@ -1,0 +1,197 @@
+vue-tools 
+	调试工具
+	https://github.com/vuejs/vue-devtools 下载安装
+
+
+指令(directive):
+	v-text/v-html/v-bind/v-on/v-model/v-for/v-if/v-show/v-else/v-else-if/v-bulala
+自定义指令: 指令是个函数|对象,用来操作dom的, 里面的this 返回window
+	a)	Vue.directive('指令名不带v-',函数(el,binding))
+		el == 使用指令的DOM元素
+		binding 是个对象 含有传入的 参数(binding.value)
+	b)  定义在选项里面
+		directives:{
+			指令名不带v-	: 函数(el,binding){}
+			指令名不带v-	: 函数(el,binding){}
+		}
+
+	指令是个函数(简写)，可以是个对象
+
+	{
+		钩子函数(生命周期)
+		inserted:fn(el,binding)		绑定指令的元素插入到父节点时调用
+		bind:fn	指令第一次绑定到元素时调用
+		update:fn	指令所在的元素的model层的数据，view有更新请求时
+		componentUpdated:fn	更新完成时
+	}
+
+	简写方式: bind + update
+
+--------------------------------------------------------------------------------------------
+
+事件：
+	模块绑定行间事件:		<xx v-on:事件名="方法名($event,参数)"
+							<xx @事件名="方法名($event,参数)"		
+	绑定自定事件:
+		定义：vm.$on( '自定义事件名'|['自定义事件名1','自定义事件名2'], 回调(参数) )
+		销毁：vm.$off( '自定义事件名'|['自定义事件名1','自定义事件名2'], 回调(参数) )
+		触发: vm.$emit(自定义事件名1,参数)
+	事件对象:
+		事件对象可以不传递，需要传递的场景:传参数同时使用事件对象时
+		show($event,参数)
+
+	冒泡：默认冒泡
+		$event   ev|event.cacelBubble=true ev.stopPropagation()
+		@click.stop 修饰符
+	默认行为:
+		event|ev.preventDefault();   @事件.prevent
+
+	连缀:	@事件.修饰符.修饰符	@事件.prevent.stop
+
+	修饰符:  keyCode/键名(enter/left/right/up/down/...)			
+修饰符：
+	事件，键盘 含有修饰符
+	事件名.修饰符  作用：修饰事件条件
+
+--------------------------------------------------------------------------------------------
+
+过滤器(filter)： 就是个函数
+	
+	场景： 格式数据
+	currency / number / date   vue1.x
+
+	vue2.x 取消了自带过滤器,  需要用户自行封装
+	使用：	{{数据名 | 过滤器名(参数1,参数2)}}
+			v-xxx="数据名 | 过滤器名(参数1,参数2)"
+			:属性="数据| ... "
+	定义:
+			a) Vue.filter('过滤器名称',函数(要过滤的元数据,参数1,参数2))
+			b) 选项
+				filters:{
+					过滤器名称:函数
+					过滤器名称2:函数(要过滤的元数据,参数)
+				}
+
+
+过滤器(filter)： 就是个函数
+	场景： 格式数据
+	currency / number / date   vue1.x
+	vue2.x 取消了自带过滤器,  需要用户自行封装
+	使用：	{{数据名 | 过滤器名(参数1,参数2)}}
+			v-xxx="数据名 | 过滤器名(参数1,参数2)"
+			:属性="数据| ... "
+	定义:
+			a) Vue.filter('过滤器名称',函数(要过滤的元数据,参数))
+			b) 选项
+				filters:{
+					过滤器名称:函数
+					过滤器名称2:函数(要过滤的元数据,参数)
+				}
+
+数据交互：
+	XMLHttpRequest|ActiveObject
+		- ajax函数
+	$.ajax()
+	fetch()  返回 是一个promise
+	promise
+
+	vue-resource   下载安装引入   vue1.x 推荐	支持jsonp
+		使用:	返回的是promise对象
+		this.$http.get('url地址?key=value&key=value').then(succFN,errorFn)
+		this.$http.get('url地址',{配置}).then(succFN,errorFn)
+		this.$http.post('url地址',{数据},{配置}).then(succFN,errorFn)
+		this.$http.jsonp('url地址',{配置}).then(succFN,errorFn)
+		this.$http({配置})
+			配置:
+				params: {key:value}  携带数据  get
+				headers: {}  携带请求头
+				body: {}  post数据
+				method：'get' get/post/.....   string
+				timeout: number  超时
+				progress：fn   进度
+				credentials: false  是否携带跨源凭证
+				emulateJSON：true post请求是需要携带的请求头
+				jsonp:'回调函数键' 默认是callback
+			响应：
+				body      返回的数据  对象  (JSONP.parse)
+				bodyText  返回的数据  文本格式  toString
+
+	axios	下载安装引入	vue2.x只有推荐		支持jsonp ??
+
+			axios({
+				url: 地址
+				method: 提交方法   get/post/put........
+				params: get提交参数
+				data: post提交参数  参数==URLSearchParams  new URLSearchParams().set(key,value)
+				timeout:超时间
+				headers： 请求头
+			})
+
+			响应：
+				data      返回的数据 
+
+-------------------------------------------------------------------------------------------
+
+组件：
+	Vue根实例表示1个应用，一个应用有若干个组件拼装而成
+
+使用组件
+	<组件名></组件名>
+定义组件
+	定义:
+		a) 	  let 组件变量名= Vue.extend({
+		        template:'<div class="header">我是header组件</div>'
+		      });
+		b)	 let 组件变量名={};		√
+	注册
+			components:{
+				组件名：组件变量名	√
+			}
+组件数据
+	data 要是个函数，且要有返回值 object
+
+模板：
+	组件内部: template: #id名
+	<script type="x-template" id='id名'
+	<tempate id='id名'...
+
+组件（单文件)
+	script + template + style
+
+----------------------------------------------------------------------
+
+组件数据流动 / 数据|属性传递 / 通讯
+	
+	父->子  属性(props)		√
+		<子 :自定义属性="父数据"></..>
+		子组件:
+			选项
+			props:['自定义属性']   props:{自定义属性:{type/default/required/...}}
+		展示:	子模板	{{自定义属性}}
+	子->父  事件(自定义)
+		<子 @自定义事件="父方法"></..>
+		子:		this.$emit('自定义事件',子.数据名) 
+		父:		methods-> 父方法(接受数据){处理}
+
+	父子之间共享数据和方法   创建，封装VUE 公共组件
+		<子 ref="自定义子名称"></..>
+
+		父访问子:	this.$refs.自定义子名称.数据名/方法()
+		子访问父:	this.$parent.数据名/方法()
+
+	同级<->同级 
+		子A ->@自定义事件="父方法"-> 父 -> :自定义属性="父数据" -> 子B
+
+	订阅发布 （观察者模式） 
+		a)  根级vue实例，作为全局对象, new Vue()=bus  bus.$emit()/$on()
+			let bus = new Vue();		返回  Vue对象  
+			bus.$emit('自定义的事件名',数据)
+	        bus.$on('自定义的事件名',function(接){处理})
+		b)  第三方的库（pubsub）
+
+		--------------------------
+	c) 	web存储(cookie,localstroge/seession)
+	d) 	存库
+	e)  状态管理
+
+----------------------------------------------------------------------

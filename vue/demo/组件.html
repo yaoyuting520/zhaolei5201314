@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<ft></ft>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		//最基本的写法
+		var header = Vue.extend({
+			template:'<div>这是头部</div>'
+		});
+		//上面的简写
+		var ft={
+			template:'<div>这是尾部</div>'
+		}
+		var vm = new Vue({
+			el:"#app",
+			components:{
+				'v-header':header,
+				 ft:ft
+			}
+		})
+		
+		
+		
+		
+	</script>
+</html>

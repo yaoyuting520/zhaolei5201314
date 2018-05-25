@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" name="" id="" value="get获取" @click="get"/>
+			<input type="button" name="" id="" value="post获取" @click="post"/>
+		<!--	<input type="button" name="" id="" value="jsonp获取" @click="jsonp"/>-->
+			
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm =new Vue({
+			el:"#app",
+			data:{
+				meg:"赵磊"
+			},
+			methods:{
+				get:function(){
+					axios({
+					  url:'php/get.php',
+					  params:{a:9,b:1}
+					}).then((res)=>{
+						console.log(res.data)
+					})
+				},
+				post:function(){
+				  let usp= new URLSearchParams();//参数对象
+		          usp.set("a","1");
+		          usp.set("b","2");
+					axios({
+					  method:'post',
+                      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+					  url:'php/get.php',
+					 // params:{a:9,b:1},
+					 // data:'a=10&b=1',
+					 data:usp
+					
+					}).then((res)=>{
+						console.log(res.data)
+					})
+				}
+				
+			}
+			
+			
+			
+		})
+		
+		
+	</script>
+</html>

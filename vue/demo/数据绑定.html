@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+</head>
+
+<body>
+
+  <!-- 数据|属性绑定 数据展示 -->
+
+  <!-- View -->
+  <div id="app">
+    <!-- {{数据名属性名}} -->
+    {{str}}
+    <div>{{num + 9}}</div>
+    <div>{{arr}}</div>
+    <div>{{json}}</div>
+    <div>{{bl}}</div>
+    <hr>
+
+    <!-- 指令  扩展了 html功能 -->
+    <div v-text="str"></div>
+    <div v-html="strong"></div>
+
+
+    <!-- 属性绑定 -->
+    <img v-bind:src="url" alt="">
+    <img :src="url" alt="">
+    <!-- <img src="{{url}}" alt=""> vue1.x 可以用 2.x废除-->   
+
+    
+
+
+  </div>
+
+  <script>
+    let vm = new Vue({//VM
+      // key选项:value
+      // el:'选择器'
+      el: '#app',
+      data:{ // model M
+        str:'bmw',
+        tittle:'this is  tittle',
+        num:110,
+        arr:['apple','orange','bananan','pear'],
+        json:{a:1,b:2},
+        bl:true,
+        strong:'<strong>虚胖</strong>',
+        url:'https://www.baidu.com/img/bd_logo1.png'
+      }
+    });
+  </script>
+
+</body>
+
+</html>

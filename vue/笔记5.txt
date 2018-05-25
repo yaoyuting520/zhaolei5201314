@@ -1,0 +1,29 @@
+单文件组件:
+	组成元素: script + template + style  ->  xx.vue
+
+vue-ci:命令行 工具 ,单价vue项目环境(内部核心就是webpack)
+	安装: npm i vue-cli -g | yarn add vue-cli golbal   测试: vue --version 
+	
+	创建项目环境: 
+	vue init webpack-simple 目录    webpack-simple|webpack  模板
+	cd 目录
+	npm install
+	npm run dev  运行
+	开发....
+	npm run build 打包
+
+路由守卫:
+		beforeRouteEnter(to,from,next){}	前置守卫,进入
+			to 目标路由
+			from 当前路由
+			next 是个函数  next() == next(true)  运行跳转
+						   next(false) 不让跳转  
+		beforeRouteLeave(to,from,next){}  后置守卫,离开
+
+	路由数据预载:
+		beforeRouteEnter(to,from,next){
+			1. 兜库 this.$http   axios可用
+			2. next( _this => _this.属性="拿到的数据")
+		}
+
+--------------------------------------------------------

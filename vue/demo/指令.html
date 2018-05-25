@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			  <input type="text" name="" id="" :value="value"  v-focus/>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.directive('focus',{
+			bind:function(el,binging){
+				//console.log("指令绑定会执行");
+				console.log(binging)
+			},
+			inserted:function(el,bingding){
+     			console.log('插入带父元素');
+				el.focus()
+			},
+			update:function(){
+				console.log("元素被绑定的数据更新了")
+			},
+			componentUpdated:function(){
+              console.log('指令原生的绑定数据更新完毕完毕完毕完毕完毕了');
+			}
+			
+		})
+		
+		
+		var vm  =  new Vue({
+			el:'#app',
+			data:{
+				value:'111'
+			}
+			
+		})
+	</script>
+</html>

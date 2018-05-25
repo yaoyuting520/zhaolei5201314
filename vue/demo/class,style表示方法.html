@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<div :class="msg1" :style="sty1">1</div>
+			<div :class="msg2" :style="sty2" >2</div>
+			<div :class="msg3" :style='sty3'>3</div>
+			
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			var app = new Vue({
+				  el: '#app',
+				  data: {
+				  	msg1:"a  b c",
+				  	msg2:{a:true,b:false,c:true},
+				  	msg3:[{a:true},{b:true},{c:false}],
+				  	sty1:"background:red; font-size:30px",
+				  	sty2:{background:"yellow",fontSize:'35px'},
+				  	sty3:"background:blue",
+ 				  }
+	         })
+		
+	</script>
+</html>

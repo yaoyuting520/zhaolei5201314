@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<nav1 :msg1='msg1'></nav1>
+		</div>
+	</body>
+	
+	
+	<template id="nav-child">
+		 <div class="nav-child">
+		 	<h2>这是nav-child</h2>
+		 	<p>{{msg1}}</p>
+		 </div>
+	</template>
+	
+	<template id="nav">
+		 <div class="nav">
+		 	<navchild :msg1='msg1'></navchild>
+		 	<h1>{{title}}</h1>
+		 	<ul>
+		 		<li v-for="(item,index)  of list">{{item}}</li>
+		 	</ul>
+		 	<p>{{msg1}}</p>
+		 </div>
+	</template>
+	
+
+	
+	 <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	 <script type="text/javascript">
+	 	var navchild = {
+	 		props:['msg1'],
+	 		template:'#nav-child'
+	 	}
+	 	
+	 	var nav1={
+	 		data(){
+	 			return {
+	 				title:"这是标题",
+	 				list:['一','二','三']
+	 			}
+	 		},
+	 		props:['msg1'],
+	 		template:'#nav',
+	 		components:{
+	 			navchild:navchild
+	 		}
+	 	}
+	 	
+	 	var vm=new Vue({
+	 		el:'#app',
+	 		data:{
+	 			msg1:'父数据1',
+	 			msg2:"胡大大"
+	 		},
+	 		components:{
+	 			  nav1
+	 		}
+	 	})
+	 	
+	 	
+	 	
+	 </script>
+	 
+</html>
+

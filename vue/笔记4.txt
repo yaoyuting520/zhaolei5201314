@@ -1,0 +1,309 @@
+-----------------------------------------------------------------
+动态组件:
+	动态组件： 组件动态化(数据化)
+	<component is="'组件名'"></component>
+	<component :is="数据"></component>
+
+内容分发
+	template:	slot 组件槽位  <slot 属性：name=槽名
+	<组件名><标签 slot="槽名">内容</..</...
+
+-----------------------------------------------------------------
+vue动画
+
+	动画组件: transition|transition-group	谁做动画，就包着谁
+
+	组件属性:
+		name =  "动画名"
+		enter-class = "类名"
+		enter-active-class = "类名"
+		leave-class = "类名"
+		leave-active-class = "类名"
+	样式：
+		.动画名-enter{..}  入场前(打哪来)
+		.动画名-enter-active{..} 入场后(来了停哪)
+		.动画名-leave{..} 离场前
+		.动画名-leave-active{..} 离开场后(到哪去)
+
+	transition组件事件:
+		@before-enter="方法(el)"   el==做动画的元素(原生)
+		@enter="方法"
+		@after-enter="方法"
+		@before-leave="方法"
+		@leave="方法"
+		@after-leave="方法"
+
+	1) css3
+		transition：无跳变
+			.动画名-enter{..} 打哪来   +   .动画名-leave-active{..} 到哪去
+		animation：有跳变
+			.动画名-enter-active{指定入场} 来了停哪 + .动画名-leave-active{指定离场}到哪去
+	2) css库 animate.css
+		同 animation 有跳变
+
+	3) js库 动画名  需要设定初始位置
+		下载 velocity.js   http://velocityjs.org/
+		使用:	Velocity(el,{css属性},{配置})
+
+		配置:
+			duration: 毫秒   事件
+			easing: 动画类别 ''
+			Queue
+			complete:fn()
+			progress:fn
+			loop: 1 次  true无限
+			delay: 毫秒 延时
+			display:'none/block' 动画结束时是否可见
+		注意：
+			leave(el,done){}
+
+路由:
+	SPA: single page application   单页面应用
+	特点： 速度快，数据ajax请求，通过路由，页面不会整体重载
+	实现:  路由 -> 加载(ajax)对应的内容  告诉你去哪?  根据url的不同，加载组件
+		 
+	路由要求： 引入 vue-router.js
+
+	路由使用流程：
+		0.	src -> vue +vue-router
+		1. 使用路由 (去哪)
+			<router-link to="/home">首页</router-link>
+	  		<router-view>展示区</router-view>
+	  		router-link 组件属性  
+				tag='li' 指定编译后的标签
+				active-class='类名' 指定激活后的样式
+		2. 配置路由(建立组件和请求的对应关系)	数组
+			[{path:'/home',component:home},,{}]
+			path 路径
+			component: 指向的组件变量名
+		3. 创建路由(传递配置)
+			router = new VueRouter(配置)
+			配置:	{routes:数组}
+		4. 顶层|根组件，注册路由 （路由控制页面组件的加载）
+			选项
+				router(选项):router (router对象)
+	子路由：children
+		routes=[
+			{},
+			{
+				path:xx
+				component:xx
+				children:[  子路由
+					{}
+					..
+				]
+			},
+			{}
+		]
+
+	参数配置:
+		{path:'xx/:参数变量',component:xx}
+
+	传递参数 and 数据
+	router-link to='xx/参数?a=1b=2'
+	router-link :to='{name:'xx',params:{},query:{}}'
+
+	接收参数和数据
+		{{this.$route.params|query|path}}
+
+	$xxx == 全局属性
+
+	组件内部： this == 组件   this.方法|数据 访问组件自己的  this.$xxx 访问全局
+			   this.$router
+	组件模板：	{{xxx}}  子个的数据  {{this.$router}} 全局数据
+				@事件="$router.xx()"
+
+	组件内部实现路由跳转: 编程式导航
+		router.push(...)
+		this.$router.push({path:'...'})   添加一个路由 （记录到历史记录)
+		this.$router.replace({path:'...'})   替换一个路由 （不记录到历史记录)
+		this.$router.go(-1|1)|goBack()  回退/前进  history.go|goBack
+
+
+webpack 4
+	官网: http://webpack.github.io/docs/
+	前身: browserify	缺点，只能转化js
+webpack作用?
+	干嘛的:	项目管理、打包、模块管理、加载资源(js/css/html/png../woff/data/vue...),转换器(loader)
+	前身：grunt/gulp/browserify->webpack
+
+webpack的历史
+	webpack1支持CMD和AMD，同时拥有丰富的plugin和loader，webpack逐渐得到广泛应用。
+	webpack2 支持ES Module，分析ESModule之间的依赖关系，webpack1必须将ES，Module转换成CommonJS模块，2支持tree sharking
+	webpack3 新的特性大都围绕ES Module提出，如Scope Hoisting和Magic Comment；
+
+环境支持： Node8 
+
+安装：
+	全局
+	npm i webpack webpack-cli
+	cli 命令行工具 打包会依赖cli
+
+	本地
+	npm i webpack webpack-cli --save-dev 开发依赖
+
+打包
+	webpack  --mode development  会自动找src/index.js 到 dist/main.js
+	要求设置开发模式|生产模式
+
+	webpack 入口地址 --mode development  指定入口
+
+		development:
+			a.浏览器调试工具
+			b.注释、开发阶段的详细错误日志和提示
+			c.快速和优化的增量构建机制
+		production:a.开启所有的优化代码
+			b.更小的main大小
+			c.去除掉只在开发阶段运行的代码
+			d.Scope hoisting和Tree-shaking
+
+自动解决依赖:
+	
+	原理：Webpack 会分析入口文件，解析包含依赖关系的各个文件。这些文件（模块）都打包到 main.js 。Webpack 会给每个模块分配一个唯一的 id 并通过这个 id 索引和访问模块。在页面启动时，会先执行 main.js 中的代码，其它模块会在运行 require 的时候再执行。
+
+loader：
+	webpack默认只支持javascript文件(默认)
+	* 其他文件(CSS/LEASS/..)	需要用加载器(loader)
+
+	loader:	类似一种转化器， 它可以把一个东西，转成另一个
+		需要下载	style-loader(读取到的css文件插到页面)	css-loader(读取css文件)
+		下载: npm install style-loader css-loader -D
+		require('style-loader!css-loader!./xx.css')
+
+	babel使用: ES6->ES5  tracuer  babel
+	npm install babel-loader babel-core babel-preset-es2015 -D
+	做个js文件模块，测试导出引入
+	导出模块:
+		export default {}
+
+	引入模块:
+		import 名字 from 模块名
+
+	配置babel预设:
+		module>rules> + {}
+		  {
+	        test:/\.js$/,
+	        exclude:/node_modules/, 排除
+	        use:[{
+	          loader:'babel-loader',
+	          options:{
+	            presets:['env']
+	          }
+	        }]
+	      }
+
+
+配置 webpack.config.js  是一个nodejs
+	作用: 配置一些webpack需要入口、出口、loader、Chunk代码块、Plugin扩展插件、Module模块
+
+	编写：
+		module.exports={
+			entry:'./entry.js'	入口文件
+			output:{
+				filename:'boundle.js'//出口文件
+			},
+			module{
+				rules:[
+					{test:'/\.css$/',use:['style-loader','css-loader']}
+				]
+			},
+			mode:'development' | production 区别环境
+		}
+
+	终端: webpack 就可以打包了
+
+	entry: 入口接收string | json
+		{app:'index1.js',app2:'index2.js'} 输出要求多输出
+	output: {
+		path:path.resolve(__dirname,'dist') //指定编译目录
+		publicPath:'dist', //指定虚拟目录 不写自动指向编译目录，html引入js时，必填
+		filename:'bundle.js' 单文件输出 | '[name].js' 多输出  html引入app和app2 配合
+	}
+
+	webpack	开发环境下编译(打包到bundle.js)
+	webpack -p	生产环境下编译(打包到bundle.js,并压缩)
+	webpack -w	监听文件改动,自动编译,不用每次运行,但不会自动刷新浏览器
+
+----------------------------------------------
+
+需要自动刷新： webServer 搭建前端开发服务器
+	cnpm install webpack-dev-server -g | -D
+	参数:
+		命令行
+		webpack-dev-server --port 8088 --open -mode development
+
+		写到webpack.config.js配置文件:
+
+		devServer: {//和module同级
+			port: 8088,
+			open:true
+		}
+
+		终端运行方式2: webpack-dev-server 
+
+	
+	把运行命令放到package.json文件:	devServer可以不要了
+		"scripts":{
+			"dev": "webpack-dev-server  --port 8088 --open"
+		}
+
+		终端: npm run dev
+	问题：代码错误没有报到正确位置
+	解决：devtool:'source-map'
+---------------------------------------------------
+省略引入文件名后缀
+	配置webpack.config.js
+	resolve: { 	与module同级
+		extensions: [ '.js', '.css', '.json', '.jsx'] 
+	}
+	require('./style') 可以省略后缀名
+---------------------------------------------------
+产出html
+	npm i html-webpack-plugin ---save-dev
+	const HtmlWebpackPlugin = require('html-webpack-plugin')
+	plugins:[
+	        new HtmlWebpackPlugin({
+	            template: './index.html',
+      			filename: './index.html',//默认到output目录
+	            hash:true,//防止缓存,会给文件后面加入hash
+	            minify:{
+	                removeAttributeQuotes:true//压缩 去掉引号
+	            }
+	        })
+	]
+
+	publicPath: '/', 指定虚拟目录为空
+	filename: 'js/[name].js',
+---------------------------------------------------
+
+css抽离
+	yarn add extract-text-webpack-plugin@next --dev
+	npm i extract-text-webpack-plugin@next --save-dev | -D
+		@next 兼容webpack4 未来会不需要
+
+	const extractTextPlugin = require("extract-text-webpack-plugin")
+
+	loader配置：
+	use: ExtractTextWebapckPlugin.extract({
+          use: 'css-loader'
+        }) //不再需要style-loader
+
+	new ExtractTextWebapckPlugin('css/[name][hash:6].css')
+---------------------------------------------------
+
+图片打包
+yarn add url-loader file-loader --dev
+npm u url-loader file-loader --save-dev
+	url-loader 存base64  file-loader存文件
+	{
+        test:/\.(png|jpg|gif)/,
+        use:[{
+          loader: 'url-loader',
+          options: {
+            limit: 5000,
+            outputPath: 'images/', 5000意思存到images
+          }
+        }]
+      }
+
+css中引入 | js动态(模块化) 引入

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+	<body>
+		<div id="app">
+			 <input type="button" name="" id="" value="切换a"  @click="showA" />
+			 <input type="button" name="" id="" value="切换b" @click="showB" />
+			 <transition
+			 	enter-active-class='animated bounceInLeft'
+			 	leave-active-class='animated bounceInRight'
+			 	   @before-enter="beforeEnter"  
+			      @enter="enter"
+			      @after-enter="afterEnter"
+			      @before-leave="beforeLeave"
+			      @leave="leave"
+			      @after-leave="afterLeave"
+			 	>
+			 	<component  :is="name"></component>
+			 </transition>
+			 
+			 
+			 
+			 
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var aa={
+			template:`<div class='aa'>
+			    这是aa组件
+			</div>`
+		};
+		var bb = {
+			template:`<div class='bb'>
+			    这是bb组件
+			</div>`
+		}
+		
+		
+		var  vm = new Vue({
+			el:"#app",
+			data:{
+				name:""
+				
+			},
+			methods:{
+				showA(){
+					this.name='aa'
+				},
+				showB(){
+					this.name='bb'
+				},
+				
+				beforeEnter(){console.log('beforeEnter');},
+		        enter(){console.log('enter');},
+		        afterEnter(el){console.log('afterEnter');el.style.background='red'},
+		        beforeLeave(){console.log('beforeLeave');},
+		        leave(){console.log('leave');},
+		        afterLeave(){console.log('afterLeave');},
+				
+			},
+			components:{
+				aa,bb
+			}
+		})
+		
+		
+	</script>
+</html>

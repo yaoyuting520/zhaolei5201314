@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			  .active1 {
+			      background: blue;
+			      color: #fff
+			    }
+			    .active2 {
+			      background: red;
+			      color: #fff
+			    }
+			
+			    .router-link-active {
+			      background: red;
+			      color: #fff
+			    }
+		</style>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+		    <h3>{{title}}</h3>
+		    <!-- 调用路由 -->
+		    <router-link to="/home"  active-class="active1">首页</router-link>
+		    <router-link to="/product" active-class="active1">商品</router-link>
+		    <router-link to="/user" active-class="active1">用户</router-link>
+		    <router-link to="/login" active-class="active1">登录</router-link>
+		    <router-link to="/reg" active-class="active1">注册</router-link>
+		    <router-view></router-view>
+      </div>
+      
+      <template   id="product" >
+      	   <div class="product">
+                <router-link    active-class="active2"    :to="{path:'/product/detail/000'}">详情002</router-link>
+			    <router-link    active-class="active2"    :to="{name:'detail',params:{aid:'001'}}">001</router-link>
+			    <router-link    active-class="active2"    :to="{name:'detail',params:{aid:'002'}}">002</router-link>
+			    <router-link    active-class="active2"    :to="{name:'detail',params:{aid:'003'}}">003</router-link>
+                <router-link active-class="active2"      :to="{name:'detail',params:{aid:'004'}}">004</router-link>
+			    <router-view></router-view>
+             <input type="button" value="去登录" @click="gologin">
+			    
+      	   </div>
+      </template>
+      
+      <template  id="detail">
+      	<div class="detail">
+      		<h1>这是detail组件</h1>
+      		<p>{{this.$route.params.aid}}</p>
+      	</div>
+      </template>
+      
+      
+	</body>
+
+	<script type="text/javascript">
+		
+		 let home = {
+	      template: '<div>home组件</div>'
+	    }
+	    let product = {
+	      template: '#product',
+	      methods:{
+	      	gologin(){
+	      		this.$router.push('/login')
+	      }
+	      }
+	    }
+	    let user = {
+	      template: '<div>user组件</div>'
+	    }
+	    let login = {
+	      template: `
+	      <div class='login'> 
+	         <div>login组件</div>
+             <input type="button" value="<<<" @click="back">
+	      </div>`,
+	      
+	       methods:{
+	      	back(){
+	      		this.$router.go(-1)
+		      }
+		      }
+	    }
+	    let reg = {
+	      template: '<div>reg组件</div>'
+	    }
+	    let error = {
+	      template: '<div>error组件</div>'
+	    }
+	    let detail = {
+	      template: '#detail',
+//	      updated(){
+//	      	console.log(this.$route.params.aid)
+//	      }
+	    }
+	    
+	    
+	    //配置路由
+	    const  routes =[
+	    {path:'/home',component:home},
+	    {path:'/product',component:product,children:[{path:'detail/:aid',name:'detail',component:detail}]},
+	    {path:'/user',component:user},
+	    {path:'/login',component:login},
+	    {path:'/reg',component:reg},
+	    {path:'/',redirect:'/home'} ,  //路由跳转
+	    {path:'*',component:error}
+	    ];
+	    
+	    
+//	     const routes = [
+//    { path: '/home', component: home },
+//    {
+//      path: '/product',
+//      component: product,
+//      children: [//子路由
+//        { path: 'detail', component: detail },
+//      ]
+//    },
+//    { path: '/user', component: user },
+//    { path: '/login', component: login },
+//    { path: '/reg', component: reg },
+//    // {path:'/',component:home}
+//    { path: '/', redirect: '/home' },//路由跳转(配置型)
+//    { path: '*', component: error }
+//  ];
+	    
+	    //创建路由对象
+	    
+	    var  router  =  new VueRouter({
+	    	routes:routes
+	    })
+	    
+	    var vm =new Vue({
+	    	el:"#app",
+	    	data:{
+	    		title:"VUE-路由"
+	    	},
+	    	methods:{
+	    		
+	    	},
+	    	router:router
+	    })
+		
+		
+	</script>
+</html>

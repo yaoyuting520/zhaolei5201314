@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" name="" id="" value="触发"  @click="al"/>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		 var vm=new Vue({
+		 	el:'#app',
+		 	data:{
+		 		
+		 	},
+		 	methods:{
+		 	   al:function(){
+                  this.$emit('zidingyi')
+		 	   }
+		 		
+		 	}
+		 })
+		vm.$on('zidingyi',function(){
+			alert('这是自定义事件')
+		})
+		vm.$emit('zidingyi')
+		 
+		 
+		
+	</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			[v-cloak]{display: none;}
+			#box{width: 300px; height: 300px; background: red;}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<input type="button" name="" id="" value="显示"  @click="show" />
+			<input type="button" name="" id="" value="销毁" @click="del"/>
+			<div id="box"  v-show="bl">
+				
+			</div>
+			
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	    var vm = new Vue({
+	    	el:'#app',
+	    	data:{
+	    		bl:false
+	    	},
+	    	methods:{
+	    		show:function(){
+	    			 alert('ko');
+	    			 this.bl=!this.bl;
+	    		},
+	    		del:function(){
+	    			 alert('ok');
+	    			 this.$destroy() //卸载组件，实例方法
+	    		}
+	    		
+	    	},
+	    	  beforeCreate(){console.log("beforeCreate")},
+	    	  created(){console.log('created');console.log(this.bl);},
+		      beforeMount(){console.log('beforeMount');},
+		      mounted(){console.log('mounted');},
+		      beforeUpdate(){console.log('beforeUpdate');},
+		      updated(){console.log('updated');},
+		      beforeDestroy(){console.log('beforeDestroy');console.log(this.bl);},
+		      destroyed(){console.log('destroyed');console.log(this.bl);this.bl='bmw'},
+			    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    })
+	 
+		
+		
+	</script>
+</html>

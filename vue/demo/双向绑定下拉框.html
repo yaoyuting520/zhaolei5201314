@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			 <select name=""  v-model="selects">
+			 	<option :value="item.value" v-for="(item,index) of arr"  >{{item.text}} </option>
+			 </select>
+			 <p>{{selects}}---{{cptPlace}}</p>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				selects:'sh',
+				arr:[
+				  {text:'上海',value:'sh'},
+				  {text:'北京',value:'bj'},
+				  {text:'杭州',value:'hz'},
+				  {text:'合肥',value:'hf'}
+				]
+			},
+			computed:{
+				cptPlace:function(){
+					var result=null;
+					this.arr.forEach((v,k)=>{
+						if(this.selects==v.value){
+							result=v.text;	
+						}
+					})
+					
+					return result;
+					
+				}
+			}
+			
+		})
+	</script>
+</htmlem

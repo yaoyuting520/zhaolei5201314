@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app" >
+			<img :src="src" style="float:right" />
+		   <p v-show="bl">11111111111111111111</p>
+		   <input type="button"  value="显示/隐藏"   @click="toggles" />
+		   <input type="button"  value="切换图片"   @click="togglesimg1()" />
+		   <input type="button"  value="切换图片"   @click="togglesimg2('imgs/333.png')" />
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			var app = new Vue({
+				  el: '#app',
+				  data: {
+				  	bl:true,
+				  	src:'imgs/111.png'
+ 				 },
+ 				 methods:{
+ 				 	toggles:function(){
+ 				 		console.log(1)
+ 				 		this.bl=!this.bl;
+ 				 	},
+ 				 	togglesimg1:function(){
+ 				 		this.src='imgs/222.png';
+ 				 	},
+ 				 	togglesimg2:function(src){
+ 				 		this.src=src;
+ 				 	}
+ 				 }
+	         })
+		
+	</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!--<input type="text" name="" id="" value="" v-model="msg" @keyup.13="show"/>-->
+			<input type="text" name="" id="" value="" v-model="msg" @keyup="show"/>
+			<ul v-for="(item,inde) of arr">
+				<li>{{item}}</li>
+			</ul>
+			
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm =new Vue({
+			el:"#app",
+			data:{
+				msg:'',
+				arr:['你好吗？']
+			},
+			methods:{
+			  show:function(ev){
+			  	if(ev.keyCode==13&&this.msg!=''){
+			  		this.arr.push(this.msg);
+			  		this.msg='';
+			 	}
+			  }
+			}
+			
+		})
+		
+		
+	</script>
+</html>

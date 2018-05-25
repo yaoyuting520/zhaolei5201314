@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<nav1  ref='appNav' ></nav1>
+		</div>
+	</body>
+	
+	
+	<template id="nav-child">
+		 <div class="nav-child">
+		 	<h2>这是nav-child</h2>
+		 	<input type="button" name="" id="" value="回馈"  />
+		 </div>
+	</template>
+	
+	<template id="nav" >
+		 <div class="nav">
+		 	<navchild  ></navchild>
+		 	<h1>{{title}}</h1>
+		 	<ul>
+		 		<li v-for="(item,index)  of list">{{item}}</li>
+		 	</ul>
+		 	<p> 11111 {{this.$parent.msg1}} </p>
+		 </div>
+	</template>
+	
+
+	
+	 <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	 <script type="text/javascript">
+	 	var navchild = {
+	 		data(){
+	 			return {
+	 				msg1:"孙子数据1",
+	 				msg2:"孙子数据2",
+	 			}
+	 		},
+	 		template:'#nav-child',
+	 		methods:{
+	 			
+	 		}
+	 	}
+	 	
+	 	var nav1={
+	 		data(){
+	 			return {
+	 				title:"这是标题",
+	 				list:['一','二','三']
+	 			}
+	 		},
+	 		template:'#nav',
+	 		components:{
+	 			navchild:navchild
+	 		},
+	 		methods:{
+	 			show(){
+	 				console.log(2)
+	 			}
+	 		},
+	 		mounted(){
+		        this.$parent.show();
+	 			
+	 		}
+	 	}
+	 	
+	 	var vm=new Vue({
+	 		el:'#app',
+	 		data:{
+	 			msg1:"父数据1",
+	 			msg2:'',
+	 		},
+	 		components:{
+	 			  nav1
+	 		},
+	 		methods:{
+	 			show(){
+	 				console.log(1)
+	 			}
+	 		},
+	 	   mounted(){
+		        console.log(this.$refs.appNav.title);
+		        this.msg2 = this.$refs.appNav.title;
+		        this.$refs.appNav.show();
+		      },
+	 	})
+	 	
+	 	
+	 	
+	 </script>
+	 
+</html>
+

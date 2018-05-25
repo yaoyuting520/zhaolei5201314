@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{width: 100px; height: 100px; position: absolute;background: red;transition: all 3s;}
+			
+			.box2{width: 100px; height: 100px; position: absolute;background: blue;transition: all 1s; }
+			  .fade-enter{
+			      opacity: 0;
+			      left:0;
+			    }
+				.fade-leave-active{
+			      opacity: 0;
+			      left:300px;
+			   } 
+			@keyframes fadeIn{
+				from{opacity: 0; left: 0;}
+				to{opacity: 1; left: 100px;}
+			}
+			@keyframes fadeOut{
+				from{opacity: 1; left: 100px;}
+				to{opacity: 0; left: 0;}
+			}
+				
+			 .fade2-leave-active{
+			      animation-duration: 1s;
+			      animation-fill-mode: both;
+			      animation-name: fadeIn;
+			    }
+			.fade2-leave-active{
+			      animation-duration: 1s;
+			      animation-fill-mode: both;
+			      animation-name: fadeIn;
+			   } 
+				
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" name="" id="" value="开始"   @click="show"/>
+			<input type="button" name="" id="" value="开始"   @click="show2"/>
+			<transition  name='fade'>
+			  <div class="box"   v-show="bl"></div>
+			</transition>
+			
+			<transition  name='fade2'>
+			  <div class="box2"   v-show="bl2"></div>
+			</transition>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				bl:'',
+				bl2:''
+				
+			},
+			methods:{
+				show:function(){
+					this.bl=!this.bl
+				},
+				show2:function(){
+					this.bl2=!this.bl2
+				}
+			}
+		})
+	</script>
+</html>

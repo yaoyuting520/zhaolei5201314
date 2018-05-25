@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<ft></ft>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#app",
+			components:{
+				'v-header':{
+					template:'<div>这是尾部</div>'
+				},
+				 'ft':{
+			       template:'<div>这是尾部</div>'
+				 }
+			}
+		})
+		
+		
+		
+		
+	</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title><style type="text/css">
+			dl{width: 500px;  margin: 0 auto;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<dl v-for="(item,index) of arr">
+				<dt>商品:{{item.name}}</dt>
+				<dd>单价:{{item.price | currency('RMB',1)}}</dd>
+				<dd>数量 :<input type="number" name="" id="" value="" v-model="item.count" min="0" /></dd>
+				<dd>小计：{{item.price * item.count | currency('RMB',1)}}</dd>
+			</dl>
+			<p>总价:{{cpt | currency}}</p>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//过滤
+		
+		Vue.filter('currency',function(data,str='$',list=2){
+			return str+data.toFixed(list)	
+		})
+		
+		
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				arr:[
+				{id:1,name:'苹果',price:4,count:5},
+				{id:1,name:'梨子',price:5,count:5},
+				{id:1,name:'香蕉',price:6,count:5},
+				{id:1,name:'橘子',price:7,count:5}
+				]
+			},
+			computed:{
+				cpt:function(){
+				 var result=0;
+				 this.arr.forEach((v,k)=>{
+				 	result+=v.price*v.count;
+				 })
+				 return result;
+				}
+			}
+		})
+		
+	</script>
+</html>

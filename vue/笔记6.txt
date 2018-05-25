@@ -1,0 +1,153 @@
+状态管理  store
+		什么时候用： 打算开发中大型应用
+		集中式数据管理, 一处修改，多处使用
+
+		思维流程:
+											store.js
+					this.$store.commit('increment')	-> mutations
+					this.$store.dispatch('jia')		-> actions			
+				     mapActions() ->actions								mapGetters()->getters
+				学生		代课老师		校长		 财务     版主任		学生
+			component - >  	actions		->  mutations -> state  <- getters	<-	components
+				发送请求      处理			修改状态	 	
+							  业务逻辑		修改state			   读取state
+							  异步
+							  							state<-$store.state <-  学生
+	-----------------------------------------------------------------------------
+	安装 vuex 状态管理插件
+	引入 + use
+
+	------------------------------------------------------------------------------
+	mapActions接管methods/mapGetters接管computed  执行后， 返回来的是对象
+		对象:	{incremen:fn,decrement:fn,xx,xx}
+	------------------------------------------------------------------------------
+	this.$store.commit('increment',参数/负载/payload) -> mutations
+	this.$store.dispatch('increment',参数/负载/payload)  -> actions
+
+	const actions = {
+		increment:({store对象},参数)=>{}
+	}
+
+	<xx @click="请求类型(负载)"   actions: 请求类型:({commit,state},payload)=>{payload==负载}
+	......
+-----------------------------------------------------------------------------	
+
+应用内部,数据传递，数据流动，流向控制  
+		0)   父->子 props属性       子->父  事件
+		a)   A -> A父  ->  子B    A B 要有共同父   父==中间人默认
+		b)   订阅发布模式  下载pubsub-js 库   创建空的Vue实例 实例.$emit 发布|$on 订阅
+		c) 	web存储(cookie,localstroge/seession)  永久
+		d) 	存库  永久
+		e)  状态管理
+		f)  非状态管理  把数据存到Vue的根组件上(data) 其他组件$root.$data 访问及修改
+
+		永久: 存库 , localstroge
+		临时：状态管理,订阅发布模式
+-----------------------------------------------------------------------------
+
+vue 样式:
+	全局引入： import 'xx.css'   | index.html - > src
+
+	公共样式:  index.html ->src 
+			   main.js app.vue   import 'xx.css'
+			   app.vue -> style -> 写入
+	局部样式:
+			  01:  BEM 命名空间 √
+			  app.vue   style -> .app.xx{}
+			  home.vue  style ->  .home.xx{}
+
+			  02:  模块化
+			  组件-> <style module>   定义类  .xx{}
+			  使用: :class="$style.xx" :class="[$style.xx,$style.xxx]"
+
+			  03:  局部作用域
+			  组件-><style scoped> 
+-----------------------------------------------------------------------------
+vue-cli + vue-router + axios + vue-aniamte + vuex vue-loader .....   全家桶
+
+新闻客户端
+	1. 环境搭建(vue-cli +  vue-router + axios + vuex == 全家桶)
+
+	2. 项目分析(组件安排) 
+		dist
+			|-...
+		static
+			data:
+				|-数据.json
+				|-js
+				...
+		src
+			|-assets
+				|-js
+				|-css
+				|-image
+			|-component
+				|-	navbar.vue / footbar.vue
+				|-	home.vue / follow.vue / column.vue / user.vue
+				|-  detail.vue / login.vue / reg.vue
+				|-	silder.vue / error.vue /list.vue
+			|-filters
+				date.js
+				fillzero.js
+			|-loading
+				index.js
+				|-component
+					|-loading.vue
+			|-store
+				|-index.js
+				|-actions.js
+				|-mutations.js
+				|-getters.js
+				|-state.js
+				|-types.js
+			|-router
+				|-router.config.js
+			main.js
+			App.vue
+		package.json
+		webpack.config.js
+	3. 布局
+		a) 切图(需要设计稿)
+		b) UI库	(bootstrap/elementUI pc端 / mintUI移动端 / ant.design / 妹子UI/ vux)
+		c) html+css模板 移植 到 组件
+
+	4. 路由搭建
+
+	5. 数据交互+全局过滤器+全局组件（loading）
+
+	6. 非状态管理（控制导航显示)
+		this.$root  返回的是根实例  new Vue (main.js)  
+		this.$root.$data.根数据名;
+		this.$root.$data.根数据名=值
+
+	7. 状态管理
+
+	9 . 路由监听
+		watch选项{
+			data数据:function(newVaue,value){}
+		}
+	10. 拦截器 (axios )
+
+
+	// 拦截器
+		axios.interceptors.request.use(function (config) {
+		  请求在发出之前
+		  store.dispatch('SHOW_LOADING')
+
+		  return config; // config 是携带配置对象
+		}, function (error) {
+		  // Do something with request error
+		  return Promise.reject(error);
+		});
+
+		// Add a response interceptor
+		axios.interceptors.response.use(function (response) {
+		  
+		  响应后的数据在到组件之前
+		  store.dispatch('HIDE_LOADING')
+
+		  return response; // response 后端返回的数据集合
+		}, function (error) {
+		  // Do something with response error
+		  return Promise.reject(error);
+		});

@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- View -->
+  <div id="app">
+     	{{msg}}<br />
+     	{{arr}}<br />
+     	{{arr2}}
+     	<input type="button" name="" id="" value="改变数据"  @click="change"/>
+  </div>
+
+</body>
+
+</html>
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    var  vm = new Vue({
+      el: '#app',
+      data: { 
+      	 msg:"msg",
+         arr:['a','b','c'],
+         arr2:[{a:1},{b:2},{c:3}]
+      },
+      methods:{
+      	change:function(){
+      		//单独不可以
+      	   //	this.arr[0]='A';
+      	     this.$set(this.arr,0,'A')
+      	   
+      	   
+      	   
+      		//单独可以
+//    		this.arr2[0].a=100;
+//    		this.arr2.push({d:10});
+      	}
+      }
+     
+    });
+  </script>

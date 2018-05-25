@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<div id="app">
+			<hd></hd>
+		</div>
+		
+		
+		<template  id="hd">
+				<div class="hd">
+				 <h1>{{title}}</h1>
+				  <ul>
+					<li  v-for="(itme,index)  of  list">{{itme}}</li>
+				  </ul>
+				</div>
+		</template>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var  hd={
+			data(){
+				return {
+					title:'我是标题啊',
+					list:['apple','balala','lizi']
+				}
+			},
+			template:'#hd'
+			 
+		}
+		
+		
+		var vm = new Vue({
+			el:"#app",
+			components:{
+			  hd
+			}
+		})
+		
+		
+		
+		
+	</script>
+</html>

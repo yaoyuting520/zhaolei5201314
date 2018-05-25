@@ -1,0 +1,20 @@
+export default {
+  SHOW_NAV:(state)=>{
+    state.bNav=true;
+  },
+  HIDE_NAV:(state)=>{
+    state.bNav=false;
+  },
+  SHOW_FOOT:(state)=>{
+    state.bFoot=true;
+  },
+  HIDE_FOOT:(state)=>{
+    state.bFoot=false;
+  },
+  SHOW_LOADING:(state)=>{
+    state.bLoading=true;
+  },
+  HIDE_LOADING:(state)=>{
+    state.bLoading=false;
+  }
+};

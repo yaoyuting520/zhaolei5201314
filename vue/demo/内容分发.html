@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<aa :m1="msg1" :m2='msg2' > 
+			  <h1  slot='s1'>这是将要分发的h1 </h1>
+              <em  slot='s2'>这是将要分发的em</em>
+			</aa>
+		
+		</div>
+		
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let aa ={
+			template:`<div class="aa">
+		         	<p>这是AA组件</p>
+			    <slot name='s1'></slot>
+			    <slot name='s2'></slot>
+		      </div>`,
+		      props:['m1','m2']
+		};
+	   let bb ={
+			template:`<div class="bb">
+		       这是BB组件	
+		      </div>`
+		}
+		
+	var vm = new Vue({
+		el:"#app",
+		data:{
+			name:'aa',
+			msg1:'msg1',
+			msg2:'msg2'
+		},
+		methods:{
+			
+		},
+		components:{
+			aa,bb
+		}
+	})
+		
+		
+	</script>
+</html>

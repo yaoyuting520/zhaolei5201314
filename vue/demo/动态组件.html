@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<components  :is="name"></components>
+			<input type="button" name="" id="" value="切换aa组件"  @click="name='aa'" />
+			<input type="button" name="" id="" value="切换bb组件" @click="name='bb'" />
+		</div>
+		
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let aa ={
+			template:`<div class="aa">
+		       这是AA组件	
+		      </div>`
+		};
+	   let bb ={
+			template:`<div class="bb">
+		       这是BB组件	
+		      </div>`
+		}
+		
+		
+		
+		
+	var vm = new Vue({
+		el:"#app",
+		data:{
+			name:'aa'
+		},
+		methods:{
+			
+		},
+		components:{
+			aa,bb
+		}
+	})
+		
+		
+	</script>
+</html>

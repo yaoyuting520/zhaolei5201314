@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+</head>
+
+<body>
+
+  <!-- View -->
+  <div id="app">
+    <div>{{num}}</div>
+    <div>{{num + 9}}</div>
+    <div>{{num * 9}}</div>
+    <div>{{ bl ? '处':'佛寺' }}</div>
+    <div>{{ str.split(' ').reverse().join(' ') }}</div>
+    <div>{{ fn }}</div>
+    <!--  <div>{{ fn() }}</div>-->
+    <!-- <div>{{ if(bl){alert('ko')} }}</div> -->
+  </div>
+
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: { 
+        num:110,
+        bl:false,
+        str:'i love you',
+        fn:function(){alert('ok')}
+      }
+     
+    });
+  </script>
+
+</body>
+
+</html>

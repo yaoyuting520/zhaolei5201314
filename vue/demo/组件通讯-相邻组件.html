@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<son1></son1>
+			<son2></son2>
+		</div>
+		
+		
+		<template  id="son1">
+			<div class="son1">
+				这是son1  ///// {{msg1}}
+				<input type="button" name="" id="" value="发送数据"  @click="sendParent"/>
+			</div>
+		</template>
+		
+		<template  id="son2">
+			<div class="son2">
+				这是son2 {{msg3}}
+			</div>
+		</template>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		var  bus  = new  Vue()
+		
+		var son1={
+			data(){
+				return {
+					msg1:"son1-msg1",
+					msg2:"son1-msg2"
+				}
+			},
+			template:'#son1',
+			methods:{
+				sendParent(){
+					console.log(1)
+					bus.$emit('toparent',this.msg1)
+				}
+			},
+			mounted(){
+				this.sendParent()
+			}
+			
+		}
+		
+		var son2={
+			data(){
+				return {
+					msg1:"son2-msg1",
+					msg2:"son2-msg2",
+					msg3:''
+				}
+			},
+			template:'#son2',
+			methods:{
+				
+		    },
+		    mounted(){
+		    	bus.$on('toparent',(data)=>{
+		    		console.log(data)
+		    		this.msg3=data;
+		    		console.log(this.msg3)
+		    	})
+		    }
+		}
+		
+		
+		var vm = new Vue({
+			el:"#app",
+			data:{
+		 		
+			},
+			methods:{
+			},
+			components:{
+				son1,son2
+			},
+			computed:{
+		 		
+			}
+		 	
+		});
+		
+	</script>
+</html>

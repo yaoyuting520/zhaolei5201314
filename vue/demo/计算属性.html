@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="search" />
+			<div v-for="value of cpt">{{value}}</div>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var app=new Vue({
+			el:'#app',
+			data:{
+				search:'',
+				str:' i love you',
+				arr:['假如爱有天意','怦然心动','阿甘正传','肖生克的救赎','这个杀手不太']
+			},
+			computed:{
+				cpt:function(){
+					var result=[];
+					this.arr.forEach((v,k)=>{
+						if(v.indexOf(this.search)!=-1){
+							result.push(v);
+						}
+					})
+						return result
+				}
+			}
+		})
+		
+		
+	</script>
+</html>

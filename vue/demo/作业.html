@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<style type="text/css">
+			*{margin: 0px; padding: 0px;}
+			#app{ width: 60%; margin: 0 auto; margin-top: 10%;}
+			li{list-style: none;}
+			ul{margin-top: 20px;}
+		</style>
+	</head>
+	<body>
+		<div id="app" >
+			<form action=""class="row" >
+				
+				
+		    <div   class="col-md-5"  ><label for="">用户：</label><input type="text"    v-model="user" class="" /></div>	
+		    <div  class="col-md-5"><label for="">内容：</label><input type="text"  v-model="content"   /></div>	
+			
+			
+			<input class="col-md-2"   type="button"   name="" id="" value="提交"  @click="add"/>
+			</form>
+			<ul class="row">
+				<li v-for="(item,index) of list"  :key="item.id" class="col-md-12"   >
+					{{item.content}}------{{item.user}}
+					<a href="javascript:" @click="del(index)">删除</a>
+					<a href="javascript:" @click="change">修改</a>
+				</li>
+				<div class="col-md-12"><input type="button" @click="delAll" value="删除所有" class="btn btn-primary   mx-auto"  /></div>
+			</ul> 
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+			var app = new Vue({
+				  el: '#app',
+				  data: {
+				  	user:'',
+				  	content:'',
+				  	list:[{id:1,user:'赵磊',content:'你好！'},{id:2,user:'杨明锋',content:'你也好'}]
+				  },
+				  methods:{
+				  	add:function(){
+				  		if(this.user!=''){
+				  			this.list.push({id:this.list.length+1,user:this.user,content:this.content})
+				  		}
+				  	},
+				  	del:function(index){
+				  		this.list.splice(index,1)
+				  	},
+				  	delAll:function(){
+				  		this.list=[];
+				  	},
+				  	change:function(ev){
+				  		ev.srcElement.parentNode.style.background='red';
+				  	}
+				  }
+	         })
+		
+	</script>
+</html>
